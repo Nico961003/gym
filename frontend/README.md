@@ -6,9 +6,9 @@ Landing page de un gimnasio, construida con React + TypeScript sobre Bootstrap 5
 > testimonios son de relleno y viven en `src/data/gym.ts`. Sustitúyelos antes de
 > publicar nada.
 
-Las fotografías proceden de la plantilla *Gymnast* de
-[HTML Codex](https://htmlcodex.com/gym-website-template) (ver
-`../../Maquetacion/LICENSE.txt`). El resto del código y los estilos son propios.
+Las fotografías son de [Pexels](https://www.pexels.com), de uso libre; el
+detalle está en [src/assets/img/CREDITOS.md](src/assets/img/CREDITOS.md). El
+código y los estilos son propios.
 
 ## Stack
 

@@ -96,7 +96,10 @@ npm run lint             npm run typecheck
 
 Código y estilos: propios.
 
-Las **fotografías** proceden de la plantilla *Gymnast* de
-[HTML Codex](https://htmlcodex.com/gym-website-template) y se rigen por
-[su licencia](https://htmlcodex.com/license). Si vas a reutilizar este
-repositorio, sustitúyelas por imágenes propias.
+**Fotografías**: de [Pexels](https://www.pexels.com), bajo su
+[licencia](https://www.pexels.com/license/) — uso libre, también comercial y
+sin atribución obligatoria. El detalle de cada una está en
+[frontend/src/assets/img/CREDITOS.md](frontend/src/assets/img/CREDITOS.md).
+
+Las personas que aparecen en las fotos no tienen relación con este sitio: los
+nombres, cargos y testimonios que las acompañan son inventados.
