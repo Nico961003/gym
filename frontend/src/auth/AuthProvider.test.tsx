@@ -16,9 +16,17 @@ function respuesta(body: unknown, status = 200): Response {
 const cliente = { id: 2, username: 'demo', nombre: 'Ana', rol: 'CLIENT' };
 const admin = { id: 3, username: 'admin', nombre: 'Admin', rol: 'ADMIN' };
 
-/** Sonda que expone el estado del contexto en el DOM. */
+/**
+ * Sonda que expone el estado del contexto en el DOM.
+ *
+ * `login` y `register` propagan el error a quien los llama —así LoginPage
+ * puede mostrarlo—, de modo que la sonda tiene que capturarlo igual que hace
+ * la página real. Con `void` la promesa rechazada quedaba sin manejar y
+ * Vitest la contaba como error de la ejecución.
+ */
 function Sonda() {
   const { user, token, loading, isAdmin, login, register, logout } = useAuth();
+  const ignorar = () => undefined;
 
   return (
     <div>
@@ -26,12 +34,16 @@ function Sonda() {
       <span data-testid="user">{user?.username ?? 'sin-sesion'}</span>
       <span data-testid="token">{token ?? 'sin-token'}</span>
       <span data-testid="isAdmin">{String(isAdmin)}</span>
-      <button onClick={() => void login({ username: 'demo', password: 'x' })}>
+      <button
+        onClick={() => {
+          login({ username: 'demo', password: 'x' }).catch(ignorar);
+        }}
+      >
         entrar
       </button>
       <button
-        onClick={() =>
-          void register({
+        onClick={() => {
+          register({
             username: 'demo',
             nombre: 'Ana',
             apellido: 'Ruiz',
@@ -39,8 +51,8 @@ function Sonda() {
             peso: 60,
             estatura: 1.6,
             password: 'Password1!',
-          })
-        }
+          }).catch(ignorar);
+        }}
       >
         registrar
       </button>
