@@ -102,6 +102,23 @@ npm run build            npm run test:coverage
 npm run lint             npm run typecheck
 ```
 
+## Despliegue
+
+El frontend se publica en GitHub Pages con
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) en cada push a
+`main`.
+
+Si clonas este repositorio en otra cuenta, hay **un paso manual ineludible**:
+activar Pages en *Settings › Pages › Build and deployment › Source →
+**GitHub Actions***. No se puede automatizar: crear el sitio por API exige
+permisos de administración que el `GITHUB_TOKEN` de Actions no tiene, y el
+workflow falla con `Resource not accessible by integration`.
+
+El backend no se despliega ahí —Pages solo sirve archivos estáticos—. Cuando
+lo publiques en algún sitio que ejecute Node y MySQL (Render, Railway, un VPS
+con el `docker-compose`…), crea la variable de repositorio `API_URL` con su
+dirección: el siguiente despliegue la usará sin tocar código.
+
 ## Documentación
 
 - [backend/README.md](backend/README.md) — API, roles, migraciones, seed y el
