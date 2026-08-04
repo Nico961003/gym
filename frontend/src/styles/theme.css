@@ -1,0 +1,893 @@
+/* Tema de Rodriguez Gym sobre Bootstrap 5.3.
+   Bootstrap se importa antes que este archivo en main.tsx, de modo que todo
+   lo de aquí lo sobrescribe. */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap');
+
+:root {
+  --rg-red: #e31c25;
+  --rg-red-dark: #b8151d;
+  --rg-dark: #111315;
+  --rg-muted: #f5f6f7;
+
+  --bs-body-font-family: 'Montserrat', system-ui, sans-serif;
+  --bs-body-color: #4c5257;
+  --bs-link-color-rgb: 227, 28, 37;
+  --bs-link-hover-color-rgb: 184, 21, 29;
+}
+
+body {
+  font-family: var(--bs-body-font-family);
+}
+
+h1,
+h2,
+h3,
+.rg-title,
+.rg-brand__text,
+.rg-stats__value,
+.rg-plan__amount {
+  font-family: 'Oswald', var(--bs-body-font-family);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ---------- Utilidades de sección ---------- */
+
+.rg-section {
+  padding: 6rem 0;
+}
+
+.rg-section--muted {
+  background-color: var(--rg-muted);
+}
+
+.rg-section--dark {
+  background-color: var(--rg-dark);
+}
+
+.rg-title {
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  font-weight: 700;
+  color: var(--rg-dark);
+  line-height: 1.15;
+}
+
+.rg-eyebrow {
+  color: var(--rg-red);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.rg-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rg-link:hover {
+  color: var(--rg-red);
+}
+
+/* ---------- Botón de marca ---------- */
+
+.btn-brand {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--rg-red);
+  --bs-btn-border-color: var(--rg-red);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--rg-red-dark);
+  --bs-btn-hover-border-color: var(--rg-red-dark);
+  --bs-btn-active-bg: var(--rg-red-dark);
+  --bs-btn-active-border-color: var(--rg-red-dark);
+  --bs-btn-focus-shadow-rgb: 227, 28, 37;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.rg-badge {
+  background-color: rgb(227 28 37 / 10%);
+  color: var(--rg-red);
+  font-weight: 600;
+}
+
+/* ---------- Navbar ---------- */
+
+.rg-navbar {
+  transition: background-color 0.25s ease, padding 0.25s ease;
+  padding-block: 1.25rem;
+  background-color: transparent;
+}
+
+.rg-navbar--solid {
+  background-color: rgb(17 19 21 / 96%);
+  padding-block: 0.5rem;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 25%);
+}
+
+.rg-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+
+.rg-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: var(--rg-red);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.rg-brand__text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.rg-navbar .nav-link {
+  color: rgb(255 255 255 / 80%);
+  font-weight: 500;
+  padding-inline: 0.9rem;
+}
+
+.rg-navbar .nav-link:hover,
+.rg-navbar .nav-link:focus {
+  color: var(--rg-red);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 991.98px) {
+  .rg-navbar {
+    background-color: rgb(17 19 21 / 96%);
+  }
+
+  .rg-navbar .navbar-collapse {
+    padding-block: 1rem;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.rg-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.rg-hero__slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1s ease, transform 8s linear;
+}
+
+.rg-hero__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.rg-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(17 19 21 / 92%) 0%,
+    rgb(17 19 21 / 70%) 50%,
+    rgb(17 19 21 / 35%) 100%
+  );
+}
+
+.rg-hero__content {
+  position: relative;
+  z-index: 2;
+  padding-block: 8rem 10rem;
+}
+
+.rg-hero__controls {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.rg-hero__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 35%);
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.rg-hero__arrow:hover {
+  background-color: var(--rg-red);
+  border-color: var(--rg-red);
+}
+
+.rg-hero__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rg-hero__dot {
+  width: 28px;
+  height: 4px;
+  border: 0;
+  border-radius: 2px;
+  background-color: rgb(255 255 255 / 35%);
+  padding: 0;
+}
+
+.rg-hero__dot.is-active {
+  background-color: var(--rg-red);
+}
+
+/* ---------- Stats ---------- */
+
+.rg-stats {
+  background-color: var(--rg-red);
+  padding-block: 3rem;
+}
+
+.rg-stats__value {
+  font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.rg-stats__label {
+  color: rgb(255 255 255 / 85%);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+/* ---------- About ---------- */
+
+.rg-about__img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.rg-check {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--rg-red);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  margin-right: 0.75rem;
+  margin-top: 2px;
+}
+
+/* ---------- Tarjetas de servicio ---------- */
+
+.rg-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%) !important;
+}
+
+.rg-card__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background-color: rgb(227 28 37 / 10%);
+  color: var(--rg-red);
+}
+
+/* ---------- Clases ---------- */
+
+.rg-class {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 6%);
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-class__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.rg-class__body {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.rg-class__meta {
+  color: var(--bs-secondary-color);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.rg-class__duration {
+  display: flex;
+  align-items: center;
+  color: var(--rg-red);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ---------- Entrenadores ---------- */
+
+.rg-trainer {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 6%);
+}
+
+.rg-trainer__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.rg-trainer__body {
+  padding: 1.5rem;
+}
+
+.rg-trainer__role {
+  color: var(--rg-red);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rg-trainer__social {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--rg-muted);
+  color: var(--rg-dark);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.rg-trainer__social:hover {
+  background-color: var(--rg-red);
+  color: #fff;
+}
+
+/* ---------- Tarifas ---------- */
+
+.rg-plan {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-plan--featured {
+  border-color: var(--rg-red);
+  box-shadow: 0 1rem 2.5rem rgb(227 28 37 / 15%);
+}
+
+.rg-plan__tag {
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--rg-red);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.rg-plan__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.rg-plan__amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--rg-dark);
+  line-height: 1;
+}
+
+.rg-plan__currency {
+  color: var(--bs-secondary-color);
+  font-size: 0.95rem;
+}
+
+.rg-plan ul {
+  flex: 1;
+}
+
+/* ---------- Testimonios ---------- */
+
+.rg-quote {
+  background-color: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-quote blockquote {
+  color: rgb(255 255 255 / 80%);
+  flex: 1;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.rg-quote__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 2px solid var(--rg-red);
+}
+
+/* ---------- Contacto ---------- */
+
+.rg-contact__icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: rgb(227 28 37 / 10%);
+  color: var(--rg-red);
+  display: grid;
+  place-items: center;
+  margin-right: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgb(227 28 37 / 50%);
+  box-shadow: 0 0 0 0.25rem rgb(227 28 37 / 15%);
+}
+
+/* ---------- Footer ---------- */
+
+.rg-footer {
+  background-color: var(--rg-dark);
+}
+
+.rg-footer__link {
+  color: rgb(255 255 255 / 65%);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.rg-footer__link:hover {
+  color: var(--rg-red);
+}
+
+.rg-footer__social {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgb(255 255 255 / 20%);
+  color: #fff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.rg-footer__social:hover {
+  background-color: var(--rg-red);
+  border-color: var(--rg-red);
+}
+
+.rg-footer__bottom {
+  border-top: 1px solid rgb(255 255 255 / 10%);
+  padding-block: 1.5rem;
+}
+
+/* ---------- Sedes ---------- */
+
+.rg-sede {
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-sede--principal {
+  border-color: var(--rg-red);
+  box-shadow: 0 1rem 2rem rgb(227 28 37 / 12%);
+}
+
+.rg-sede__icon {
+  flex: 0 0 28px;
+  color: var(--rg-red);
+  margin-right: 0.5rem;
+}
+
+.rg-chip {
+  display: inline-block;
+  background-color: var(--rg-muted);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.78rem;
+  color: var(--bs-secondary-color);
+}
+
+.rg-chip--rojo {
+  background-color: rgb(227 28 37 / 10%);
+  color: var(--rg-red);
+  font-weight: 600;
+}
+
+/* ---------- Horarios ---------- */
+
+.rg-horario-card {
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+/* ---------- Promociones ---------- */
+
+.rg-promo {
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-promo--destacada {
+  border-color: var(--rg-red);
+}
+
+.rg-promo__valor {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--rg-red);
+  line-height: 1;
+}
+
+.rg-promo__pie {
+  border-top: 1px solid var(--bs-border-color);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.rg-promo__codigo {
+  background-color: var(--rg-muted);
+  color: var(--rg-dark);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+/* ---------- Invitación a unirse ---------- */
+
+.rg-join {
+  background-color: var(--rg-dark);
+  padding: 5rem 0;
+}
+
+/* ---------- Paneles (cliente y administración) ---------- */
+
+.rg-panel {
+  padding: 8rem 0 5rem;
+  background-color: var(--rg-muted);
+  min-height: 100vh;
+}
+
+.rg-panel__card {
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.rg-kpi {
+  background: #fff;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.rg-kpi__label {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.72rem;
+  color: var(--bs-secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.rg-kpi__valor {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--rg-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.rg-admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  padding-bottom: 0.75rem;
+}
+
+.rg-admin-tabs a {
+  text-decoration: none;
+  color: var(--bs-secondary-color);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.rg-admin-tabs a:hover {
+  background-color: rgb(0 0 0 / 4%);
+  color: var(--rg-dark);
+}
+
+.rg-admin-tabs a.is-active {
+  background-color: var(--rg-red);
+  color: #fff;
+}
+
+.rg-tabla-logs__cambios {
+  max-width: 320px;
+  word-break: break-word;
+}
+
+/* ---------- Modal ---------- */
+
+.rg-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 50%);
+  z-index: 1050;
+}
+
+.rg-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1055;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.rg-modal__dialog {
+  pointer-events: auto;
+  background: #fff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 2rem 4rem rgb(0 0 0 / 25%);
+}
+
+.rg-modal__dialog--ancho {
+  max-width: 720px;
+}
+
+.rg-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.rg-modal__body {
+  padding: 1.5rem;
+}
+
+.btn-close-custom {
+  background: transparent;
+  border: 0;
+  color: var(--bs-secondary-color);
+  display: grid;
+  place-items: center;
+  padding: 0.25rem;
+}
+
+.btn-close-custom:hover {
+  color: var(--rg-red);
+}
+
+/* ---------- Login y arranque de sesión ---------- */
+
+.rg-auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 8rem 1rem 4rem;
+  background:
+    linear-gradient(rgb(17 19 21 / 92%), rgb(17 19 21 / 96%)),
+    var(--rg-dark);
+}
+
+.rg-auth__panel {
+  width: 100%;
+  max-width: 460px;
+  background-color: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1rem;
+  padding: 2.5rem;
+}
+
+.rg-auth__panel--ancho {
+  max-width: 620px;
+}
+
+.rg-auth__reglas {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rg-auth__reglas li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgb(255 255 255 / 55%);
+}
+
+.rg-auth__reglas li.is-ok {
+  color: #4ade80;
+}
+
+/* ---------- Login y arranque de sesión (legacy) ---------- */
+
+.rg-splash {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: var(--rg-dark);
+}
+
+.rg-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background:
+    linear-gradient(rgb(17 19 21 / 92%), rgb(17 19 21 / 96%)),
+    var(--rg-dark);
+}
+
+.rg-login__panel {
+  width: 100%;
+  max-width: 480px;
+  background-color: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1rem;
+  padding: 2.5rem;
+}
+
+.rg-login__tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rg-login__tabs button {
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 15%);
+  color: rgb(255 255 255 / 70%);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.rg-login__tabs button.is-active {
+  background-color: var(--rg-red);
+  border-color: var(--rg-red);
+  color: #fff;
+}
+
+.rg-login__reglas {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rg-login__reglas li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgb(255 255 255 / 55%);
+}
+
+.rg-login__reglas li.is-ok {
+  color: #4ade80;
+}
+
+.rg-navbar__user {
+  color: rgb(255 255 255 / 80%);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ---------- Accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .rg-hero__slide,
+  .rg-navbar,
+  .rg-card,
+  .rg-trainer__social,
+  .rg-footer__social,
+  .rg-hero__arrow {
+    transition: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}

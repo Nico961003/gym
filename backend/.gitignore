@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+
+# Nunca subir credenciales
+.env
+.env.*
+!.env.example
+
+*.log
+npm-debug.log*
+.DS_Store
