@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Si se empuja dos veces seguidas, cancela la ejecución anterior.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (Express + MySQL)
+    runs-on: ubuntu-latest
+
+    # Los tests de integración necesitan una base de datos de verdad.
+    services:
+      mysql:
+        image: mysql:26.7
+        env:
+          MYSQL_ROOT_PASSWORD: root_de_ci
+          MYSQL_DATABASE: gym
+          MYSQL_USER: gym_app
+          MYSQL_PASSWORD: gym_de_ci
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root -proot_de_ci"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+          --health-start-period=40s
+
+    env:
+      NODE_ENV: test
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: gym_app
+      DB_PASSWORD: gym_de_ci
+      DB_NAME: gym
+      JWT_SECRET: secreto-solo-para-ci-con-mas-de-32-caracteres
+      JWT_EXPIRES_IN: 2h
+      CORS_ORIGIN: http://localhost:3000
+      AUTH_RATE_LIMIT_MAX: 10000
+      SEED_ON_START: 'false'
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Comprobación de tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Aplicar migraciones
+        run: npm run db:migrate
+
+      - name: Tests (unitarios + integración)
+        run: npm run test:all
+
+      - name: Build
+        run: npm run build
+
+  frontend:
+    name: Frontend (React + Vite)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Comprobación de tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
