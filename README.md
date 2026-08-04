@@ -1,12 +1,29 @@
-# Rodriguez Gym
+<h1 align="center">Rodriguez Gym</h1>
 
-**🔗 Sitio publicado: https://nico961003.github.io/gym/**
+<p align="center">
+  Sitio web de un gimnasio: portada pública, área de socio y panel de administración.
+</p>
 
-[![CI](https://github.com/Nico961003/gym/actions/workflows/ci.yml/badge.svg)](https://github.com/Nico961003/gym/actions/workflows/ci.yml)
-[![Desplegar en GitHub Pages](https://github.com/Nico961003/gym/actions/workflows/deploy.yml/badge.svg)](https://github.com/Nico961003/gym/actions/workflows/deploy.yml)
+<p align="center">
+  <a href="https://github.com/Nico961003/gym/actions/workflows/ci.yml">
+    <img alt="CI" src="https://github.com/Nico961003/gym/actions/workflows/ci.yml/badge.svg">
+  </a>
+  <a href="https://github.com/Nico961003/gym/actions/workflows/deploy.yml">
+    <img alt="Despliegue" src="https://github.com/Nico961003/gym/actions/workflows/deploy.yml/badge.svg">
+  </a>
+</p>
 
-Sitio web de un gimnasio: portada pública, área de socio y panel de
-administración. Monorepo con dos proyectos independientes.
+<p align="center">
+  <a href="https://nico961003.github.io/gym/">
+    <img src="docs/img/portada.jpg" alt="Portada de Rodriguez Gym" width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://nico961003.github.io/gym/"><strong>🔗 Ver sitio en vivo</strong></a>
+</p>
+
+Monorepo con dos proyectos independientes.
 
 > **Todo el contenido es ficticio.** Nombres, precios, sedes, personas y
 > testimonios son de relleno para la maqueta. Ver [Licencia](#licencia).
