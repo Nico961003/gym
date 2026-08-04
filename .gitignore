@@ -15,6 +15,9 @@ coverage/
 .env
 .env.*
 !.env.example
+# Excepción: el entorno de los tests se versiona para que la bateria no
+# dependa de la configuracion local de cada maquina. No lleva secretos.
+!.env.test
 
 # Caches
 .vite/

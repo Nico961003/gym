@@ -38,6 +38,10 @@ jobs:
       - name: Configurar Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # Intenta habilitar Pages por API si aún no lo está, para no tener
+          # que activarlo a mano en Settings > Pages.
+          enablement: true
 
       - name: Instalar dependencias
         run: npm ci
