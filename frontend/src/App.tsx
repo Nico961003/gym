@@ -55,7 +55,10 @@ export function AppRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
+    // `BASE_URL` vale «/» en desarrollo y «/<repositorio>/» al publicar en
+    // GitHub Pages; sin el basename, el router no encontraría ninguna ruta.
+    // Se quita la barra final porque React Router no la admite ahí.
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>

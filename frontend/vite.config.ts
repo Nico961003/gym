@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // GitHub Pages publica el sitio en /<repositorio>/, no en la raíz del
+  // dominio. BASE_PATH lo inyecta el workflow de despliegue; en desarrollo
+  // se queda en «/».
+  base: process.env.BASE_PATH ?? '/',
   server: {
     port: 3000,
     open: true,

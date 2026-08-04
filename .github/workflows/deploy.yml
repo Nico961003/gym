@@ -1,0 +1,79 @@
+name: Desplegar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Permite lanzarlo a mano desde la pestaña Actions.
+  workflow_dispatch:
+
+# Permisos que necesita actions/deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez; no se cancela el que ya está en marcha.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Construir el frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Configurar Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build
+        env:
+          # El sitio cuelga de /<repositorio>/, no de la raíz del dominio.
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          # URL de la API. Mientras no haya backend publicado se queda
+          # vacía y el sitio degrada mostrando su aviso de "sin conexión".
+          # Para enchufarlo: Settings > Secrets and variables > Actions >
+          # Variables, y crear API_URL.
+          VITE_API_URL: ${{ vars.API_URL }}
+        run: npm run build
+
+      - name: Fallback de rutas para la SPA
+        # GitHub Pages devuelve 404.html cuando la ruta no existe como
+        # archivo. Sirviendo ahí el mismo index.html, al recargar en
+        # /acceder o /admin la aplicación carga y el router resuelve.
+        run: cp build/index.html build/404.html
+
+      - name: Subir el artefacto
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: frontend/build
+
+  deploy:
+    name: Publicar
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Desplegar
+        id: deployment
+        uses: actions/deploy-pages@v4

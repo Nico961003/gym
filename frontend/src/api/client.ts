@@ -1,6 +1,17 @@
 import type { ApiErrorDetail } from './types';
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api';
+/**
+ * URL de la API. Puede llegar vacía: es lo que ocurre en la demostración
+ * publicada en GitHub Pages, que sirve archivos estáticos y no tiene backend
+ * detrás. En ese caso conviene decirlo con todas las letras en vez de dejar
+ * que falle con un error de red genérico.
+ */
+const BASE_URL = import.meta.env.VITE_API_URL?.trim() || '';
+
+const SIN_BACKEND =
+  'Esta es una demostración sin servidor: el registro, el acceso y el panel ' +
+  'de administración necesitan la API, que no está publicada. Puedes ' +
+  'levantarla en local siguiendo el README del repositorio.';
 
 /** Error de la API con el detalle de validación que devuelve el backend. */
 export class ApiError extends Error {
@@ -33,6 +44,10 @@ export async function apiRequest<T>(
   path: string,
   { method = 'GET', body, token, signal }: RequestOptions = {}
 ): Promise<T> {
+  if (!BASE_URL) {
+    throw new ApiError(0, SIN_BACKEND);
+  }
+
   let response: Response;
 
   try {

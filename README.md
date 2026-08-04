@@ -1,10 +1,27 @@
 # Rodriguez Gym
 
+**🔗 Sitio publicado: https://nico961003.github.io/gym/**
+
+[![CI](https://github.com/Nico961003/gym/actions/workflows/ci.yml/badge.svg)](https://github.com/Nico961003/gym/actions/workflows/ci.yml)
+[![Desplegar en GitHub Pages](https://github.com/Nico961003/gym/actions/workflows/deploy.yml/badge.svg)](https://github.com/Nico961003/gym/actions/workflows/deploy.yml)
+
 Sitio web de un gimnasio: portada pública, área de socio y panel de
 administración. Monorepo con dos proyectos independientes.
 
 > **Todo el contenido es ficticio.** Nombres, precios, sedes, personas y
 > testimonios son de relleno para la maqueta. Ver [Licencia](#licencia).
+
+> **Qué se ve en el sitio publicado.** GitHub Pages solo sirve archivos
+> estáticos, así que allí está **únicamente el frontend**: se ve toda la
+> portada (sedes, horarios, clases, tarifas, equipo y testimonios), pero el
+> acceso, el registro, las promociones en vivo y el panel de administración
+> necesitan la API, que no está desplegada, y avisan de ello. Para verlo
+> entero hay que [levantarlo en local](#puesta-en-marcha), que sí incluye
+> backend y base de datos.
+>
+> Cuando la API esté publicada, basta con crear la variable de repositorio
+> `API_URL` (*Settings › Secrets and variables › Actions › Variables*) con su
+> URL: el siguiente despliegue la usará sin tocar el código.
 
 | | |
 | --- | --- |
